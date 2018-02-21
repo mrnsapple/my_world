@@ -19,6 +19,8 @@ int	**feed_map()
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
+				map[y][x] = 0.4;
+			else if (y % 2 == 0)
 				map[y][x] = 1;
 			else
 				map[y][x] = 0;
@@ -94,8 +96,10 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **map_2d)
 {
 	sfVertexArray *vertex_array = sfVertexArray_create();
-	sfVertex      vertex1 = {.position = map_2d[x][y], .color = sfColor_fromRGBA(255, 0 , 0 , 125)};
-	sfVertex      vertex2 = {.position = map_2d[x][y + 1], .color = sfWhite};
+	sfVertex      vertex1 = {.position = map_2d[x][y], .color
+				 = sfColor_fromRGBA(0, 125 , 125 , 250)};
+	sfVertex      vertex2 = {.position = map_2d[x][y + 1],
+				 .color = sfColor_fromRGBA(0, 255 , 125 , 125)};
 	sfVertex      vertex3 = {.position = map_2d[x + 1][y], .color = sfWhite};
 	sfVertex      vertex4 = {.position = map_2d[x + 1][y + 1], .color = sfWhite};
 
@@ -117,11 +121,11 @@ int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
 		for (x = 0; x + 1 != MAP_X; x++) {
 			//printf("thex:%d,they:%d\n",x, y);
 			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
-			create_line(window, map_2d[y][x], map_2d[y][x + 1]);
-			create_line(window, map_2d[y][x], map_2d[y + 1][x]);
+			//create_line(window, map_2d[y][x], map_2d[y][x + 1]);
+			//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
 			create_face(window, x, y, map_2d);
 		}
-		create_line(window, map_2d[y][x], map_2d[y + 1][x]);
+		//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
 	}
 	for (x = 0; x + 1 != MAP_X; x++)
 		create_line(window, map_2d[y][x], map_2d[y][x + 1]);
