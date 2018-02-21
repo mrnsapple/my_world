@@ -8,8 +8,11 @@
 #include <curses.h>
 
 #include "list.h"
-float rotation = 45;
-float view_angle = 45;
+float	rotation = 45;
+float	view_angle = 45;
+float	x_map = 0;
+float	y_map = 0;
+float	z_map = 0;
 
 int	**feed_map()
 {
@@ -72,8 +75,11 @@ sfVector2f	**create_2d_map(int **map_3d)
 	map2d = sfVector_malloca(MAP_Y, MAP_X);
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
-			map2d[y][x] = project_iso_point(x *SCALING_X, y
-							* SCALING_Y, map_3d[y][x] * SCALING_Z);
+			map2d[y][x] =
+				project_iso_point(x *SCALING_X + x_map, y
+							* SCALING_Y + y_map,
+							map_3d[y][x] * SCALING_Z
+					+ z_map);
 			//printf("mapx:%f\n", map2d[y][x].x);
 			//printf("mapy:%f\n", map2d[y][x].y);
 		}
@@ -99,9 +105,9 @@ sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **
 {
 	sfVertexArray *vertex_array = sfVertexArray_create();
 	sfVertex      vertex1 = {.position = map_2d[x][y], .color
-				 = sfColor_fromRGBA(0, 125 , 125 , 250)};
+				 = sfColor_fromRGBA(0, 125 , 125 , 255)};
 	sfVertex      vertex2 = {.position = map_2d[x][y + 1],
-				 .color = sfColor_fromRGBA(0, 255 , 125 , 125)};
+				 .color = sfColor_fromRGBA(0, 255 , 125 , 255)};
 	sfVertex      vertex3 = {.position = map_2d[x + 1][y], .color = sfWhite};
 	sfVertex      vertex4 = {.position = map_2d[x + 1][y + 1], .color = sfWhite};
 
@@ -158,6 +164,14 @@ int	key_press()
 		view_angle++;
 	if (sfKeyboard_isKeyPressed(sfKeyDown))
 		view_angle--;
+	if (sfKeyboard_isKeyPressed(sfKeyA))
+		y_map++;
+	if (sfKeyboard_isKeyPressed(sfKeyD))
+		y_map--;
+	if (sfKeyboard_isKeyPressed(sfKeyW))
+		x_map++;
+	if (sfKeyboard_isKeyPressed(sfKeyS))
+		x_map--;
 	return (0);
 }
 
