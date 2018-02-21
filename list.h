@@ -29,12 +29,12 @@
 #ifndef LIST_H_
 #define LIST_H_
 
-#define SCALING_X	60
-#define SCALING_Y	60
-#define SCALING_Z	60
+#define SCALING_X	20
+#define SCALING_Y	20
+#define SCALING_Z	2
 #define PI		3.14159265358979323846
-#define MAP_X		6
-#define MAP_Y		6
+#define MAP_X		20
+#define MAP_Y		20
 #define BUFF		12
 
 typedef struct framebuffer

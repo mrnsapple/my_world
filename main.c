@@ -24,9 +24,9 @@ int	**feed_map()
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
-				map[y][x] = 0.4;
+				map[y][x] = 4;
 			else if (y % 2 == 0)
-				map[y][x] = 1;
+				map[y][x] = 15;
 			else
 				map[y][x] = 0;
 		}
@@ -103,6 +103,7 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 
 sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **map_2d)
 {
+	//float	a = 2;
 	sfVertexArray *vertex_array = sfVertexArray_create();
 	sfVertex      vertex1 = {.position = map_2d[x][y], .color
 				 = sfColor_fromRGBA(0, 125 , 125 , 255)};
@@ -110,7 +111,8 @@ sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **
 				 .color = sfColor_fromRGBA(0, 255 , 125 , 255)};
 	sfVertex      vertex3 = {.position = map_2d[x + 1][y], .color = sfWhite};
 	sfVertex      vertex4 = {.position = map_2d[x + 1][y + 1], .color = sfWhite};
-
+	
+	
 	sfVertexArray_append(vertex_array, vertex1);
 	sfVertexArray_append(vertex_array, vertex2);
 	sfVertexArray_append(vertex_array, vertex4);
