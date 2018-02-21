@@ -5,6 +5,11 @@
 ** 
 */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
 #include <SFML/Graphics/Color.h>
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
@@ -19,6 +24,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/types.h>
+#include <curses.h>
 
 #ifndef LIST_H_
 #define LIST_H_

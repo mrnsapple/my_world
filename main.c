@@ -5,6 +5,8 @@
 ** 
 */
 
+#include <curses.h>
+
 #include "list.h"
 float rotation = 45;
 float view_angle = 45;
@@ -146,13 +148,21 @@ luis *feed2_a(luis *a, float num)
         return (a);
 }
 
+int	key_press()
+{
+	if (sfKeyboard_isKeyPressed(sfKeyLeft))
+		rotation--;
+	if (sfKeyboard_isKeyPressed(sfKeyRight))
+		rotation++;
+	return (0);
+}
+
 int	open_window(sfVector2f **map2d, int **map)
 {
-	luis	*a;
+	luis		*a;
 	
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
-	//map2d = create_2d_map(map);
 	sfRenderWindow_setFramerateLimit(a->window, 80);
 	while (sfRenderWindow_isOpen(a->window)) {
 		while(sfRenderWindow_pollEvent(a->window, &a->event)){
@@ -161,7 +171,7 @@ int	open_window(sfVector2f **map2d, int **map)
 		}
 		sfRenderWindow_clear(a->window, sfBlack);
 		map2d = create_2d_map(map);
-		rotation++;
+		key_press();
 		draw_2d_map(a->window, map2d);
 		//	sfSprite_setTexture(a->sprite, a->texture, sfTrue);
 		free_map2d(map2d);
