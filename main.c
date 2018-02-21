@@ -154,6 +154,10 @@ int	key_press()
 		rotation--;
 	if (sfKeyboard_isKeyPressed(sfKeyRight))
 		rotation++;
+	if (sfKeyboard_isKeyPressed(sfKeyUp))
+		view_angle++;
+	if (sfKeyboard_isKeyPressed(sfKeyDown))
+		view_angle--;
 	return (0);
 }
 
