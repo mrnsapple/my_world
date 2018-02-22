@@ -47,13 +47,14 @@ typedef struct luis_t
 {
  	sfVideoMode video_mode;
         sfRenderWindow *window;
-        sfTexture* texture;
-	sfSprite* sprite;
-        sfEvent event;
-        int alpha;
-	int alpha2;
-        int count;
-        sfVector2i center;
+        sfTexture*	texture;
+	sfSprite*	sprite;
+        sfEvent		event;
+        int		alpha;
+	int		alpha2;
+        int		count;
+        sfVector2i	center;
+	sfWindow	*screen;
 }luis;
 
 typedef struct coordin_t

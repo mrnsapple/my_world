@@ -24,9 +24,9 @@ int	**feed_map()
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
-				map[y][x] = 4;
+				map[y][x] = 50;
 			else if (y % 2 == 0)
-				map[y][x] = 15;
+				map[y][x] = 100;
 			else
 				map[y][x] = 0;
 		}
@@ -80,8 +80,8 @@ sfVector2f	**create_2d_map(int **map_3d)
 							* SCALING_Y + y_map,
 							map_3d[y][x] * SCALING_Z
 					+ z_map);
-			//printf("mapx:%f\n", map2d[y][x].x);
-			//printf("mapy:%f\n", map2d[y][x].y);
+			printf("mapx:%f", map2d[y][x].x);
+			printf("mapy:%f\n", map2d[y][x].y);
 		}
 	}
 	return (map2d);
@@ -101,16 +101,16 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 	return (vertex_array);
 }
 
-sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **map_2d)
+sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a, sfVector2f **map_2d)
 {
-	//float	a = 2;
+	//map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + 30;
 	sfVertexArray *vertex_array = sfVertexArray_create();
-	sfVertex      vertex1 = {.position = map_2d[x][y], .color
+	sfVertex      vertex1 = {.position = map_2d[a.x][a.y], .color
 				 = sfColor_fromRGBA(0, 125 , 125 , 255)};
-	sfVertex      vertex2 = {.position = map_2d[x][y + 1],
+	sfVertex      vertex2 = {.position = map_2d[a.x][a.y + 1],
 				 .color = sfColor_fromRGBA(0, 255 , 125 , 255)};
-	sfVertex      vertex3 = {.position = map_2d[x + 1][y], .color = sfWhite};
-	sfVertex      vertex4 = {.position = map_2d[x + 1][y + 1], .color = sfWhite};
+	sfVertex      vertex3 = {.position = map_2d[a.x + 1][a.y], .color = sfWhite};
+	sfVertex      vertex4 = {.position = map_2d[a.x + 1][a.y + 1], .color = sfWhite};
 	
 	
 	sfVertexArray_append(vertex_array, vertex1);
@@ -124,21 +124,20 @@ sfVertexArray   *create_face(sfRenderWindow *window, int x, int y, sfVector2f **
 }
 int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
 {
-	int		x = 0;
-	int		y = 0;
+	struct coordin_t	a = {.x = 0, .y = 0};
 
-	for (y = 0; y + 1 != MAP_Y; y++) {
-		for (x = 0; x + 1 != MAP_X; x++) {
+	for (a.y = 0; a.y + 1 != MAP_Y; a.y++) {
+		for (a.x = 0; a.x + 1 != MAP_X; a.x++) {
 			//printf("thex:%d,they:%d\n",x, y);
 			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
 			//create_line(window, map_2d[y][x], map_2d[y][x + 1]);
 			//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
-			create_face(window, x, y, map_2d);
+			create_face(window, a, map_2d);
 		}
 		//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
 	}
-	for (x = 0; x + 1 != MAP_X; x++)
-		create_line(window, map_2d[y][x], map_2d[y][x + 1]);
+	for (a.x = 0; a.x + 1 != MAP_X; a.x++)
+		create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
 	//printf("out\n");
 	return (0);
 }
@@ -180,6 +179,7 @@ int	key_press()
 int	open_window(sfVector2f **map2d, int **map)
 {
 	luis		*a;
+	//sfVector2i	click;
 	
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
@@ -190,13 +190,18 @@ int	open_window(sfVector2f **map2d, int **map)
 				sfRenderWindow_close(a->window);
 		}
 		sfRenderWindow_clear(a->window, sfBlack);
-		map2d = create_2d_map(map);
 		key_press();
+		map2d = create_2d_map(map);
+		map2d[5][5].x = map2d[5][5].x + 100;
 		draw_2d_map(a->window, map2d);
-		//	sfSprite_setTexture(a->sprite, a->texture, sfTrue);
 		free_map2d(map2d);
                 //sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
+		//sfVector2i	click;
+		//click = sfMouse_getPosition(a->screen);
+		//printf("mouse - %d %d\n", click.x, click.y);
                 sfRenderWindow_display(a->window);
+		//	sfSprite_setTexture(a->sprite, a->texture, sfTrue);
+
 	}
 	//sfSprite_destroy(a->sprite);
         //sfTexture_destroy(a->texture);
