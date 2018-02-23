@@ -66,7 +66,7 @@ sfVector2f	project_iso_point(int x, int z, int y)
 	return (point_2d);
 }
 
-sfVector2f	**create_2d_map(int **map_3d)
+sfVector2f	**create_2d_map(int **map_3d, sfVector2i click)
 {
 	sfVector2f	**map2d;
 	int		x = 0;
@@ -179,7 +179,7 @@ int	key_press()
 int	open_window(sfVector2f **map2d, int **map)
 {
 	luis		*a;
-	//sfVector2i	click;
+	sfVector2i	click;
 	
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
@@ -191,13 +191,14 @@ int	open_window(sfVector2f **map2d, int **map)
 		}
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
-		map2d = create_2d_map(map);
+		click = sfMouse_getPosition(a->screen);
+		map2d = create_2d_map(map, click);
 		map2d[5][5].x = map2d[5][5].x + 100;
 		draw_2d_map(a->window, map2d);
 		free_map2d(map2d);
                 //sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
 		//sfVector2i	click;
-		//click = sfMouse_getPosition(a->screen);
+		//
 		//printf("mouse - %d %d\n", click.x, click.y);
                 sfRenderWindow_display(a->window);
 		//	sfSprite_setTexture(a->sprite, a->texture, sfTrue);
@@ -214,10 +215,11 @@ int	main(int ac, char **av)
 {
 	int		**map;
 	sfVector2f	**map2d;
-	
+	sfVector2i	click;
+
 	map = feed_map();
 	printf("hehe\n");
-	map2d = create_2d_map(map);
+	map2d = create_2d_map(map, click);
 	open_window(map2d, map);
 	printf("hehe\n");
 	return (0);
