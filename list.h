@@ -62,10 +62,14 @@ typedef struct coordin_t
         int     x;
         int     y;
 }coordinates;
+sfVector2f      **create_2d_map(int **map_3d);
+int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d);
+
 
 sfVector2f **sfVector_malloca(int num_ar, int cha);
 sfVector2f      **create_2d_water_map(int **water_map);
 sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d);
+int     map_creation(int **water_map, int **map, luis *a);
 
 sfVertexArray   *create_water_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d);
 

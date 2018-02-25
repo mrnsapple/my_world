@@ -10,7 +10,8 @@ SRC 	=	main.c			\
 		my_puts.c		\
 		my_puts2.c		\
 		put_in_array.c		\
-		water.c
+		water.c			\
+		map_creation.c
 
 OBJ	=	$(SRC:.c=.o)
 

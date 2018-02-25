@@ -127,7 +127,8 @@ sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a, sfVecto
 	sfVertexArray_destroy(vertex_array);
 	return (vertex_array);
 }
-int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
+
+int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
 {
 	struct coordin_t	a = {.x = 0, .y = 0};
 
@@ -193,17 +194,13 @@ int	mouse_button_press(int **map)
 	}
 	return (0);
 }
-int	open_window(sfVector2f **map2d, int **map, int **water_map)
+int	open_window(int **map, int **water_map)
 {
 	luis		*a;
-	sfVector2i	clicke = {.x = 0, .y = 0};
 	//sfVector2i	click;
-	sfVector2f	**water;
-
+	
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
-	sfMouse_setPosition(clicke,a->screen);
-
 	sfRenderWindow_setFramerateLimit(a->window, 80);
 	while (sfRenderWindow_isOpen(a->window)) {
 		while(sfRenderWindow_pollEvent(a->window, &a->event)){
@@ -212,17 +209,9 @@ int	open_window(sfVector2f **map2d, int **map, int **water_map)
 		}
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
+		map_creation(water_map, map, a);
 		mouse_button_press(map);
-		water = create_2d_water_map(water_map);
-		
-		map2d = create_2d_map(map);
-		draw_2d_map(a->window, map2d);
-		draw_2d_water_map(a->window, water);
-		
-		//upgrade_the_position(click, map2d);
-		free_map2d(map2d);
-		free_map2d(water);
-                //sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
+		//sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
 		//sfVector2i	click;
 		//printf("mouse - %d %d\n", click.x, click.y);
                 sfRenderWindow_display(a->window);
@@ -239,15 +228,14 @@ int	open_window(sfVector2f **map2d, int **map, int **water_map)
 int	main(int ac, char **av)
 {
 	int		**map;
-	sfVector2f	**map2d;
 	//sfVector2i	click;
 	int		**water_map;
 
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	water_map = feed_water_map();
 	map = feed_map(map);
-	map2d = create_2d_map(map);
-	open_window(map2d, map, water_map);
+	//map2d = create_2d_map(map);
+	open_window(map, water_map);
 	printf("hehe\n");
 	return (0);
 }
