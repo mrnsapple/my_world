@@ -8,8 +8,8 @@
 #include <curses.h>
 #include "list.h"
 
-float	rotation = 45;
-float	view_angle = 45;
+float	rotation = 16;
+float	view_angle = 228;
 float	x_map = 0;
 float	y_map = 0;
 float	z_map = 0;
@@ -19,7 +19,6 @@ int	**feed_map(int	**map)
 {
 	int	y;
 	int	x;
-	//int	**map;
 
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
@@ -29,9 +28,17 @@ int	**feed_map(int	**map)
 				map[y][x] = size;
 			else
 				map[y][x] = 0;
+			
 		}
 	}
-	
+	for (y = 0; y != MAP_Y; y++) {
+		if (y > MAP_Y / 4  && y < (MAP_Y / 4) * 3) {
+			for (x = 0; x != MAP_X; x++) {
+				if (x > MAP_X/ 4 && x < (MAP_X / 4) * 3)
+					map[y][x] = 200;
+			}
+		}
+	}
 	return (map);
 }
 
@@ -79,8 +86,8 @@ sfVector2f	**create_2d_map(int **map_3d)
 							* SCALING_Y + y_map,
 							map_3d[y][x] * SCALING_Z
 					+ z_map);
-			printf("mapx:%f", map2d[y][x].x);
-			printf("mapy:%f\n", map2d[y][x].y);
+			//printf("mapxd:%f", map2d[y][x].x);
+			//printf("mapy:%f\n", map2d[y][x].y);
 		}
 	}
 	return (map2d);
@@ -208,15 +215,13 @@ int	open_window(sfVector2f **map2d, int **map, int **water_map)
 		mouse_button_press(map);
 		water = create_2d_water_map(water_map);
 		
-		//click = sfMouse_getPosition(a->screen);
-		//printf("click.x:%d,y:%d\n", click.x, click.y);
 		map2d = create_2d_map(map);
-		//map2d[5][5].x = map2d[5][5].x + 100;
 		draw_2d_map(a->window, map2d);
 		draw_2d_water_map(a->window, water);
 		
 		//upgrade_the_position(click, map2d);
 		free_map2d(map2d);
+		free_map2d(water);
                 //sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
 		//sfVector2i	click;
 		//printf("mouse - %d %d\n", click.x, click.y);
@@ -241,7 +246,6 @@ int	main(int ac, char **av)
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	water_map = feed_water_map();
 	map = feed_map(map);
-	printf("hehe\n");
 	map2d = create_2d_map(map);
 	open_window(map2d, map, water_map);
 	printf("hehe\n");

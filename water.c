@@ -37,8 +37,8 @@ sfVector2f	**create_2d_water_map(int **water_map)
                                 project_iso_point(x *SCALING_X, y
 						  * SCALING_Y,
 						  water_map[y][x] * SCALING_Z + z_map);
-                        printf("mapx:%f", map2d[y][x].x);
-	                printf("mapy:%f\n", map2d[y][x].y);
+			// printf("mapx:%f", map2d[y][x].x);
+	                //printf("mapy:%f\n", map2d[y][x].y);
 	        }
 	}
 	z_map--;
