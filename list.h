@@ -64,12 +64,19 @@ typedef struct coordin_t
 }coordinates;
 
 sfVector2f **sfVector_malloca(int num_ar, int cha);
+sfVector2f      **create_2d_water_map(int **water_map);
+sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d);
 
+sfVertexArray   *create_water_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d);
+
+int     draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d);
+int     **feed_water_map();
 void    are_nb(char *str);
 void    are_positive(int lines, int nb_match);
 char	**get_the_match(int num, int *line, int lines, char **map);
 int     before_the_match(int num);
 void    free_map2d(sfVector2f **map_2d);
+sfVector2f      project_iso_point(int x, int z, int y);
 
 int	sticks(char *av, int i);
 int     get_the_line(int count, int *line, int lines, char **map);
