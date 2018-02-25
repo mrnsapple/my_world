@@ -8,10 +8,10 @@
 #include <curses.h>
 #include "list.h"
 
-float	rotation = 16;
-float	view_angle = 228;
-float	x_map = 0;
-float	y_map = 0;
+float	rotation = 20;
+float	view_angle = 332;
+float	x_map = -81;
+float	y_map = -446;
 float	z_map = 0;
 int	size = 100;
 
@@ -19,7 +19,7 @@ int	**feed_map(int	**map)
 {
 	int	y;
 	int	x;
-
+	//printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
