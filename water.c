@@ -16,10 +16,15 @@ int	**feed_water_map()
 
         map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	for (y = 0; y != MAP_Y; y++) {
-                for (x = 0; x != MAP_X; x++)
-			map[y][x] = 0;
+                for (x = 0; x != MAP_X; x++) {
+			if (x % 2 == 0)
+				map[y][x] = 50;
+			else if (y % 2 == 0)
+                                map[y][x] = 100;
+                        else
+                                map[y][x] = 0;
+		}
         }
-
 	return (map);
 }
 

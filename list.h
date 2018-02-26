@@ -29,9 +29,9 @@
 //#ifndef LIST_H_
 //#define LIST_H_
 //it was 20, 20 ,2 or 1 1 0.1
-#define SCALING_X	2
-#define SCALING_Y	2
-#define SCALING_Z	0.2
+#define SCALING_X	4
+#define SCALING_Y	4
+#define SCALING_Z	0.4
 #define SCALE_Z		SCALING_Z * 2
 #define SCALE_X		SCALING_X * 20
 #define SCALE_Y		SCALING_Y * 20
