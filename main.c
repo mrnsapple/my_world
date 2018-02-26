@@ -19,7 +19,7 @@ int	**feed_map(int	**map)
 {
 	int	y;
 	int	x;
-	//printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
+	printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
@@ -56,7 +56,7 @@ sfVector2f	project_iso_point(int x, int z, int y)
 	point[1] = y * cos(view) - point[2] * sin(view);
 	point_2d.x = point[0] + (800 / 2) - a;
 	point_2d.y = point[1] + (600 / 2);
-	
+
 	/*point_2d.x = cos((0 / 180) * PI) * (float)x -
 		cos((0 / 180) * PI) * (float)y;
 	point_2d.y = sin((0.0 / 180) * PI);
@@ -82,10 +82,9 @@ sfVector2f	**create_2d_map(int **map_3d)
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			map2d[y][x] =
-				project_iso_point(x *SCALING_X + x_map, y
+				project_iso_point(x * SCALING_X + x_map, y
 							* SCALING_Y + y_map,
-							map_3d[y][x] * SCALING_Z
-					+ z_map);
+							map_3d[y][x] * SCALING_Z + z_map);
 			//printf("mapxd:%f", map2d[y][x].x);
 			//printf("mapy:%f\n", map2d[y][x].y);
 		}
@@ -107,9 +106,11 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 	return (vertex_array);
 }
 
-sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a, sfVector2f **map_2d)
+sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a,
+			     sfVector2f **map_2d, sfVector2f **water)
 {
-	//map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + 30;
+	//map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + water[0][0].x;
+	//map_2d[a.x][a.y].y = map_2d[a.x][a.y].y + water[0][0].y;
 	sfVertexArray *vertex_array = sfVertexArray_create();
 	sfVertex      vertex1 = {.position = map_2d[a.x][a.y], .color
 				 = sfColor_fromRGBA(0, 125 , 125 , 255)};
@@ -128,7 +129,8 @@ sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a, sfVecto
 	return (vertex_array);
 }
 
-int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
+int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
+		    sfVector2f **water)
 {
 	struct coordin_t	a = {.x = 0, .y = 0};
 
@@ -138,7 +140,7 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d)
 			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
 			//create_line(window, map_2d[y][x], map_2d[y][x + 1]);
 			//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
-			create_face(window, a, map_2d);
+			create_face(window, a, map_2d, water);
 		}
 	}
 	for (a.x = 0; a.x + 1 != MAP_X; a.x++)
@@ -197,8 +199,8 @@ int	mouse_button_press(int **map)
 int	open_window(int **map, int **water_map)
 {
 	luis		*a;
-	//sfVector2i	click;
-	
+	//sfVector2i	click
+
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
 	sfRenderWindow_setFramerateLimit(a->window, 80);

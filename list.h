@@ -26,12 +26,18 @@
 #include <sys/types.h>
 #include <curses.h>
 
-#ifndef LIST_H_
-#define LIST_H_
+//#ifndef LIST_H_
+//#define LIST_H_
+//it was 20, 20 ,2 or 1 1 0.1
+#define SCALING_X	2
+#define SCALING_Y	2
+#define SCALING_Z	0.2
+#define SCALE_Z		SCALING_Z * 2
+#define SCALE_X		SCALING_X * 20
+#define SCALE_Y		SCALING_Y * 20
 
-#define SCALING_X	20
-#define SCALING_Y	20
-#define SCALING_Z	2
+
+
 #define PI		3.14159265358979323846
 #define MAP_X		20
 #define MAP_Y		20
@@ -63,13 +69,13 @@ typedef struct coordin_t
         int     y;
 }coordinates;
 sfVector2f      **create_2d_map(int **map_3d);
-int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d);
+int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d, sfVector2f **water);
 
 
 sfVector2f **sfVector_malloca(int num_ar, int cha);
 sfVector2f      **create_2d_water_map(int **water_map);
-sfVertexArray   *create_face(sfRenderWindow *window,
-			     struct coordin_t   a, sfVector2f **map_2d);
+sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t   a,
+			     sfVector2f **map_2d, sfVector2f **water);
 int     map_creation(int **water_map, int **map, luis *a);
 
 sfVertexArray   *create_water_face(sfRenderWindow *window,
@@ -89,4 +95,4 @@ int	**int_malloca(int num_ar, int cha);
 void	my_putchar(char c);
 int	my_putstr(char *str);
 
-#endif
+//#endif
