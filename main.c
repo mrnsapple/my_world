@@ -154,10 +154,11 @@ luis *feed2_a(luis *a, float num)
         //a->center.y = 1000;
 	a->texture = sfTexture_create(800, 600);
         a->sprite = sfSprite_create();
-        a->video_mode.width = 800;
-        a->video_mode.height = 600;
-        a->video_mode.bitsPerPixel = 8;
-	a->window = sfRenderWindow_create(a->video_mode, "Window", sfResize | sfClose, NULL);
+	a->video_mode = sfVideoMode_getDesktopMode();
+//        a->video_mode.width = 800;
+	//      a->video_mode.height = 600;
+	//      a->video_mode.bitsPerPixel = 8;
+	a->window = sfRenderWindow_create(a->video_mode, "Window", sfFullscreen, NULL);
         return (a);
 }
 
@@ -199,11 +200,10 @@ int	mouse_button_press(int **map)
 int	open_window(int **map, int **water_map)
 {
 	luis		*a;
-	//sfVector2i	click
 
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
-	sfRenderWindow_setFramerateLimit(a->window, 80);
+	sfRenderWindow_setFramerateLimit(a->window, 8);
 	while (sfRenderWindow_isOpen(a->window)) {
 		while(sfRenderWindow_pollEvent(a->window, &a->event)){
 			if(a->event.type == sfEvtClosed)
@@ -214,9 +214,7 @@ int	open_window(int **map, int **water_map)
 		map_creation(water_map, map, a);
 		mouse_button_press(map);
 		//sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
-		//sfVector2i	click;
-		//printf("mouse - %d %d\n", click.x, click.y);
-                sfRenderWindow_display(a->window);
+		sfRenderWindow_display(a->window);
 		//sfSprite_setTexture(a->sprite, a->texture, sfTrue);
 
 	}
