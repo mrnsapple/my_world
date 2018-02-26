@@ -11,8 +11,8 @@ SRC 	=	main.c			\
 		my_puts2.c		\
 		put_in_array.c		\
 		water.c			\
-		map_creation.c
-
+		map_creation.c		\
+		rectangle.c
 OBJ	=	$(SRC:.c=.o)
 
 NAME 	=	matchstick

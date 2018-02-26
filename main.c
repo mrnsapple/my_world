@@ -14,11 +14,13 @@ float	x_map = -81;
 float	y_map = -446;
 float	z_map = 0;
 int	size = 100;
+//int	color[3];
 
 int	**feed_map(int	**map)
 {
 	int	y;
 	int	x;
+
 	printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
@@ -186,41 +188,44 @@ int	key_press()
 int	mouse_button_press(int **map)
 {
 	if (sfMouse_isButtonPressed(sfMouseLeft)) {
-		size++;
+		size = size + 10;
 		//free(map);
 		map = feed_map(map);
 	}
 	if (sfMouse_isButtonPressed(sfMouseRight)) {
-		size--;
+		size = size - 10;
 		//free(map);
 		map = feed_map(map);
 	}
 	return (0);
 }
+
+void	close_win(luis *a)
+{
+	while(sfRenderWindow_pollEvent(a->window, &a->event)){
+		if(a->event.type == sfEvtClosed)
+			sfRenderWindow_close(a->window);
+		}
+}
 int	open_window(int **map, int **water_map)
 {
 	luis		*a;
+	sfRectangleShape	*rectangle;
 
+	rectangle = draw_rect();
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
-	sfRenderWindow_setFramerateLimit(a->window, 8);
+	sfRenderWindow_setFramerateLimit(a->window, 16);
 	while (sfRenderWindow_isOpen(a->window)) {
-		while(sfRenderWindow_pollEvent(a->window, &a->event)){
-			if(a->event.type == sfEvtClosed)
-				sfRenderWindow_close(a->window);
-		}
+		close_win(a);
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
-		map_creation(water_map, map, a);
+		print_rect(a, rectangle);
+		map_creation(water_map, map, a, rectangle);
 		mouse_button_press(map);
-		//sfRenderWindow_drawSprite(a->window, a->sprite, NULL);
 		sfRenderWindow_display(a->window);
-		//sfSprite_setTexture(a->sprite, a->texture, sfTrue);
-
 	}
-	//sfSprite_destroy(a->sprite);
-        //sfTexture_destroy(a->texture);
-        sfRenderWindow_destroy(a->window);
+	sfRenderWindow_destroy(a->window);
 
 	return (0);
 }
@@ -232,8 +237,9 @@ int	main(int ac, char **av)
 	int		**water_map;
 
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
-	water_map = feed_water_map();
+	//water_map = feed_water_map();
 	map = feed_map(map);
+	water_map = feed_map(map);
 	//map2d = create_2d_map(map);
 	open_window(map, water_map);
 	printf("hehe\n");

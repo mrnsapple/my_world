@@ -71,16 +71,18 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 }
 
 
-int	map_creation(int **water_map, int **map, luis *a)
+int	map_creation(int **water_map, int **map, luis *a, sfRectangleShape        *rectangle)
 {
 	sfVector2f      **map2d;
 	sfVector2f      **water;
-	sfVector2i      click;
-		
+	sfVector2i	click;
+
 	click = sfMouse_getPosition(a->screen);
 	//printf("mouse - %d %d\n", click.x, click.y);
 	water = create_2d_water_map(water_map);
 	map2d = create_2d_map(map);
+	if (mouse_touch_rect(rectangle, click) == 1)
+		sfRenderWindow_close(a->window);
 	put_tree_all_square(map2d, water, a, click);
 	draw_2d_water_map(a->window, water);
 	free_map2d(map2d);
