@@ -44,6 +44,33 @@ int	**feed_map(int	**map)
 	return (map);
 }
 
+void	feeds_water_map(int	**map)
+{
+	int	y;
+	int	x;
+
+	printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
+	for (y = 0; y != MAP_Y; y++) {
+		for (x = 0; x != MAP_X; x++) {
+			if (x % 2 == 0)
+				map[y][x] = 50;
+			else if (y % 2 == 0)
+				map[y][x] = 100;
+			else
+				map[y][x] = 0;
+			
+		}
+	}
+	for (y = 0; y != MAP_Y; y++) {
+		if (y > MAP_Y / 4  && y < (MAP_Y / 4) * 3) {
+			for (x = 0; x != MAP_X; x++) {
+				if (x > MAP_X/ 4 && x < (MAP_X / 4) * 3)
+					map[y][x] = 200;
+			}
+		}
+	}
+}
+
 sfVector2f      **create_2d_water_map(int **water_map)
 {
         sfVector2f      **map2d;
@@ -173,10 +200,11 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
 	return (0);
 }
 
-luis *feed2_a(luis *a, float num)
+luis *feed2_a(luis *a, float num, int **map)
 {
         //a->center.x = 800 / 2 + 800 / 2 * cos(num)*cos(num*2);
         //a->center.y = 1000;
+	
 	a->i = 3;
 	a->texture = sfTexture_create(800, 600);
         a->sprite = sfSprite_create();
@@ -237,14 +265,15 @@ int	open_window(int **map, int **water_map)
 	luis		*a;
 		
 	a = malloc(sizeof(luis));
-	a = feed2_a(a, 0);
-	a->water_map = water_map;
+	a = feed2_a(a, 0, map);
+	//a->water_map = water_map;
 	sfRenderWindow_setFramerateLimit(a->window, 16);
 	while (sfRenderWindow_isOpen(a->window)) {
 		close_win(a);
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
 		map_creation(water_map, map, a);
+		
 		mouse_button_press(map);
 		sfRenderWindow_display(a->window);
 	}
@@ -255,14 +284,12 @@ int	open_window(int **map, int **water_map)
 int	main(int ac, char **av)
 {
 	int		**map;
-	//sfVector2i	click;
 	int		**water_map;
-
+	
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
-	//water_map = feed_water_map();
 	map = feed_map(map);
+	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	water_map = feed_map(map);
-	//map2d = create_2d_map(map);
 	open_window(map, water_map);
 	printf("hehe\n");
 	return (0);

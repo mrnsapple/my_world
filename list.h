@@ -63,7 +63,7 @@ typedef struct luis_t
 	sfWindow	*screen;
 	sfColor		color;
 	int		i;
-	int		**water_map;
+	sfVector2f		**water;
 }luis;
 
 typedef struct coordin_t
@@ -85,10 +85,13 @@ int     **big_building_map(int  **map);
 int     **small_building_map(int  **map);
 void    change_building(int **map, luis *a);
 int     **feed_map(int  **map);
+void	feeds_water_map(int    **map);
 
 //
 sfVector2f      **create_2d_map(int **map_3d);
 int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d, sfVector2f **water, sfColor color);
+
+
 sfVector2f **sfVector_malloca(int num_ar, int cha);
 sfVector2f      **create_2d_water_map(int **water_map);
 sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t   a,
