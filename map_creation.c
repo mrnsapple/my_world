@@ -25,7 +25,7 @@ void	print_trees(sfVector2i *value, sfVector2f **map2d, sfVector2f **water, luis
 	int	i;
 	for (i = 0; value[i].x != -84 && value[i].y != -84; i++) {
 		put_tree_in_place(map2d, water, value[i].y, value[i].x);
-		draw_2d_map(a->window, map2d, water);
+		draw_2d_map(a->window, map2d, water, sfBlue);
 	}		
 }
 
@@ -40,14 +40,16 @@ int	mouse_tree_press(int num, sfVector2i *value, int x, int y)
 	}
 	return (num);
 }
-
-sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a, sfVector2i click)
+//need to put to send the color each time call draw_2d_map
+sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a, sfColor color)
 {
 	int		x;
 	int		y;
 	static sfVector2i	*value = NULL;
 	static int	num = 0;
+	sfVector2i		click;
 
+	click = sfMouse_getPosition(a->screen);
 	if (num == 0) {
 		value = malloc(sizeof(struct coordin_t)* MAP_X * MAP_Y);
 		value[0].x = -84;
@@ -55,14 +57,13 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 	}
 	for (y = 0; y != MAP_Y; y++) {
                 for (x = 0; x != MAP_X; x++) {
-			if (click.x >= water[y][x].x &&
-			    click.x <= water[y][x + 1].x &&
-			    click.y >= water[y][x].y &&
-			    click.y <= water[y + 1][x].y) {
-				//printf("x:%d,y;%d, water[x]:%f,water[y]:%f\n", x, y, water[y][x].x, water[y][x].y);
+			if (click.x > water[y][x].x &&
+			    click.x < water[y][x + 1].x &&
+			    click.y > water[y][x].y &&
+			    click.y < water[y + 1][x].y) {
 				num = mouse_tree_press(num, value, x, y); 
 				put_tree_in_place(map2d, water, y, x);
-				draw_2d_map(a->window, map2d, water);
+				draw_2d_map(a->window, map2d, water, color);
 			}
 		}
 	}
@@ -70,22 +71,55 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 	return (value);
 }
 
-
-int	map_creation(int **water_map, int **map, luis *a, sfRectangleShape        *rectangle)
+sfColor	wanted_color(int i)
 {
-	sfVector2f      **map2d;
-	sfVector2f      **water;
-	sfVector2i	click;
+	sfColor	color;
 
-	click = sfMouse_getPosition(a->screen);
+	if (i == 0)
+		color = sfColor_fromRGBA(0, 0 , 255 , 255);
+	if (i == 1)
+		color = sfColor_fromRGBA(0, 255 , 125 , 255);
+	if (i == 2)
+		color = sfColor_fromRGBA(255, 0 , 0 , 255);
+	return (color);
+}
+
+sfColor	rectangle_stuff(luis *a)
+{
+	sfRectangleShape        *rectangle;
+	sfVector2f		*num;
+	int	i;
+	sfVector2i		click;
+	sfColor			color;
+	
+ 	click = sfMouse_getPosition(a->screen);
+	num = square_positions();
+	for (i = 0; num[i].x != -84 && num[i].y != -84; i++) {
+		rectangle = draw_rect(num[i], i);
+		print_rect(a, rectangle);
+		color = wanted_color(i);
+		if (mouse_touch_rect(rectangle, click) == 1)
+			return (color);
+		free(rectangle);
+	}
+	free(num);
+	return (sfColor_fromRGBA(0, 255 , 125 , 255));
+}
+
+sfColor	map_creation(int **water_map, int **map, luis *a)
+{
+	sfVector2f		**map2d;
+	sfVector2f		**water;
+	sfColor			color;
+	
+	color = rectangle_stuff(a);
+ 	/*click = */sfMouse_getPosition(a->screen);
 	//printf("mouse - %d %d\n", click.x, click.y);
 	water = create_2d_water_map(water_map);
 	map2d = create_2d_map(map);
-	if (mouse_touch_rect(rectangle, click) == 1)
-		sfRenderWindow_close(a->window);
-	put_tree_all_square(map2d, water, a, click);
+	put_tree_all_square(map2d, water, a, color);
 	draw_2d_water_map(a->window, water);
 	free_map2d(map2d);
 	free_map2d(water);
-	return (0);
+	return (color);
 }

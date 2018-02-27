@@ -14,7 +14,7 @@ float	x_map = -81;
 float	y_map = -446;
 float	z_map = 0;
 int	size = 100;
-//int	color[3];
+int	color[3];
 
 int	**feed_map(int	**map)
 {
@@ -132,7 +132,7 @@ sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a,
 }
 
 int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
-		    sfVector2f **water)
+		    sfVector2f **water, sfColor color)
 {
 	struct coordin_t	a = {.x = 0, .y = 0};
 
@@ -187,12 +187,14 @@ int	key_press()
 
 int	mouse_button_press(int **map)
 {
-	if (sfMouse_isButtonPressed(sfMouseLeft)) {
+	//if (sfMouse_isButtonPressed(sfMouseLeft)) {
+	if (sfKeyboard_isKeyPressed(sfKeyZ)) {
 		size = size + 10;
 		//free(map);
 		map = feed_map(map);
 	}
-	if (sfMouse_isButtonPressed(sfMouseRight)) {
+	if (sfKeyboard_isKeyPressed(sfKeyX)) {
+		//if (sfMouse_isButtonPressed(sfMouseRight)) {
 		size = size - 10;
 		//free(map);
 		map = feed_map(map);
@@ -210,9 +212,7 @@ void	close_win(luis *a)
 int	open_window(int **map, int **water_map)
 {
 	luis		*a;
-	sfRectangleShape	*rectangle;
-
-	rectangle = draw_rect();
+		
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
 	sfRenderWindow_setFramerateLimit(a->window, 16);
@@ -220,8 +220,7 @@ int	open_window(int **map, int **water_map)
 		close_win(a);
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
-		print_rect(a, rectangle);
-		map_creation(water_map, map, a, rectangle);
+		map_creation(water_map, map, a);
 		mouse_button_press(map);
 		sfRenderWindow_display(a->window);
 	}
