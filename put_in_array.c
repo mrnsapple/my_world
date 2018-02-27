@@ -47,3 +47,12 @@ int **int_malloca(int num_ar, int cha)
 		pwd[fd] = malloc(sizeof(int) * (cha + 1));
 	return (pwd);
 }
+
+void	int_malloca_free(int **pwd)
+{
+	int	fd;
+	
+	for (fd = 0; fd < MAP_Y + 3; fd++)
+		free(pwd[fd]);
+	free(pwd);
+}

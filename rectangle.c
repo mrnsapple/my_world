@@ -11,7 +11,8 @@ sfRectangleShape	*draw_rect(sfVector2f b, int i)
 {
 	sfRectangleShape	*rectangle;
 	sfVector2f		a = {.x = 30,.y = 40};
-	sfColor			one[3] = {sfBlue, sfGreen, sfRed};	
+	sfColor			one[4] = {sfBlue, sfGreen, sfRed, sfWhite};
+
 	rectangle = malloc(sizeof(rectangle));
 	if (rectangle == NULL)
 		exit (84);
@@ -45,7 +46,7 @@ sfVector2f	*square_positions()
 {
 	sfVector2f	*num;
 
-	num = malloc(sizeof(sfVector2i) * 4);
+	num = malloc(sizeof(sfVector2i) * 8);
 	if (num == NULL)
 		exit(84);
 	num[0].x = 50;
@@ -54,7 +55,13 @@ sfVector2f	*square_positions()
 	num[1].y = 50;
 	num[2].x = 600;
 	num[2].y = 50;
-	num[3].x = -84;
-	num[3].y = -84;
+	num[3].x = 1800;
+	num[3].y = 50;
+	num[4].x = 1800;
+	num[4].y = 300;
+	num[5].x = 1800;
+	num[5].y = 600;
+	num[6].x = -84;
+	num[6].y = -84;
 	return (num);
 }

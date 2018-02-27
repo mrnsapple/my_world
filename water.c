@@ -28,28 +28,6 @@ int	**feed_water_map()
 	return (map);
 }
 
-sfVector2f	**create_2d_water_map(int **water_map)
-{
-        sfVector2f      **map2d;
-        int             x = 0;
-        int             y = 0;
-	static int	z_map = 0;
-	
-        map2d = sfVector_malloca(MAP_Y, MAP_X);
-        for (y = 0; y != MAP_Y; y++) {
-                for (x = 0; x != MAP_X; x++) {
-                        map2d[y][x] =
-                                project_iso_point(x *SCALE_X, y
-						  * SCALE_Y,
-						  water_map[y][x] * SCALE_Z + z_map);
-			// printf("mapx:%f", map2d[y][x].x);
-	                //printf("mapy:%f\n", map2d[y][x].y);
-	        }
-	}
-	//z_map--;
-	return (map2d);
-}
-
 sfVertexArray   *create_water_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d)
 {
         //map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + 30;                        

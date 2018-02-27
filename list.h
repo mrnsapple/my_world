@@ -61,6 +61,9 @@ typedef struct luis_t
         int		count;
         sfVector2i	center;
 	sfWindow	*screen;
+	sfColor		color;
+	int		i;
+	int		**water_map;
 }luis;
 
 typedef struct coordin_t
@@ -77,9 +80,13 @@ int     mouse_touch_rect(sfRectangleShape *rectangle,
 			 sfVector2i click);
 sfVector2f      *square_positions();
 
+//buildings
+int     **big_building_map(int  **map);
+int     **small_building_map(int  **map);
+void    change_building(int **map, luis *a);
+int     **feed_map(int  **map);
+
 //
-
-
 sfVector2f      **create_2d_map(int **map_3d);
 int draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d, sfVector2f **water, sfColor color);
 sfVector2f **sfVector_malloca(int num_ar, int cha);
@@ -87,10 +94,13 @@ sfVector2f      **create_2d_water_map(int **water_map);
 sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t   a,
 			     sfVector2f **map_2d, sfVector2f **water, sfColor color);
 sfColor     map_creation(int **water_map, int **map, luis *a);
+void    int_malloca_free(int **pwd);
 
 sfVertexArray   *create_water_face(sfRenderWindow *window,
 				   struct coordin_t   a, sfVector2f **map_2d);
 int     draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d);
+
+int     **feed_map_tree(int     **map);
 int     **feed_water_map();
 void    are_nb(char *str);
 void    are_positive(int lines, int nb_match);

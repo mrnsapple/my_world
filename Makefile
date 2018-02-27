@@ -12,7 +12,9 @@ SRC 	=	main.c			\
 		put_in_array.c		\
 		water.c			\
 		map_creation.c		\
-		rectangle.c
+		rectangle.c		\
+		building.c
+
 OBJ	=	$(SRC:.c=.o)
 
 NAME 	=	matchstick

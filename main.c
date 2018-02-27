@@ -44,6 +44,29 @@ int	**feed_map(int	**map)
 	return (map);
 }
 
+sfVector2f      **create_2d_water_map(int **water_map)
+{
+        sfVector2f      **map2d;
+        int             x = 0;
+        int             y = 0;
+	static int      z_map = 0;
+
+        map2d = sfVector_malloca(MAP_Y, MAP_X);
+        for (y = 0; y != MAP_Y; y++) {
+                for (x = 0; x != MAP_X; x++) {
+                        map2d[y][x] =
+                                project_iso_point(x *SCALE_X + x_map, y
+                                                  * SCALE_Y + y_map,
+                                                  water_map[y][x] * SCAL\
+E_Z + z_map);
+                        // printf("mapx:%f", map2d[y][x].x);             
+                        //printf("mapy:%f\n", map2d[y][x].y);            
+                }
+        }
+        //z_map--;                                                       
+	return (map2d);
+}
+
 sfVector2f	project_iso_point(int x, int z, int y)
 {
 	sfVector2f	point_2d;
@@ -154,11 +177,10 @@ luis *feed2_a(luis *a, float num)
 {
         //a->center.x = 800 / 2 + 800 / 2 * cos(num)*cos(num*2);
         //a->center.y = 1000;
+	a->i = 3;
 	a->texture = sfTexture_create(800, 600);
         a->sprite = sfSprite_create();
 	a->video_mode = sfVideoMode_getDesktopMode();
-//        a->video_mode.width = 800;
-	//      a->video_mode.height = 600;
 	//      a->video_mode.bitsPerPixel = 8;
 	a->window = sfRenderWindow_create(a->video_mode, "Window", sfFullscreen, NULL);
         return (a);
@@ -175,13 +197,14 @@ int	key_press()
 	if (sfKeyboard_isKeyPressed(sfKeyDown))
 		view_angle--;
 	if (sfKeyboard_isKeyPressed(sfKeyA))
-		y_map++;
+		x_map = x_map - 10;
 	if (sfKeyboard_isKeyPressed(sfKeyD))
-		y_map--;
+		x_map = x_map + 10;
 	if (sfKeyboard_isKeyPressed(sfKeyW))
-		x_map++;
+		y_map = y_map - 10;
 	if (sfKeyboard_isKeyPressed(sfKeyS))
-		x_map--;
+		y_map = y_map + 10;
+		
 	return (0);
 }
 
@@ -215,6 +238,7 @@ int	open_window(int **map, int **water_map)
 		
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0);
+	a->water_map = water_map;
 	sfRenderWindow_setFramerateLimit(a->window, 16);
 	while (sfRenderWindow_isOpen(a->window)) {
 		close_win(a);
@@ -225,7 +249,6 @@ int	open_window(int **map, int **water_map)
 		sfRenderWindow_display(a->window);
 	}
 	sfRenderWindow_destroy(a->window);
-
 	return (0);
 }
 
