@@ -109,15 +109,15 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 }
 
 sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a,
-			     sfVector2f **map_2d, sfVector2f **water)
+			     sfVector2f **map_2d, sfVector2f **water, sfColor color)
 {
 	//map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + water[0][0].x;
 	//map_2d[a.x][a.y].y = map_2d[a.x][a.y].y + water[0][0].y;
 	sfVertexArray *vertex_array = sfVertexArray_create();
 	sfVertex      vertex1 = {.position = map_2d[a.x][a.y], .color
-				 = sfColor_fromRGBA(0, 125 , 125 , 255)};
+				 = color};
 	sfVertex      vertex2 = {.position = map_2d[a.x][a.y + 1],
-				 .color = sfColor_fromRGBA(0, 255 , 125 , 255)};
+				 .color = color};
 	sfVertex      vertex3 = {.position = map_2d[a.x + 1][a.y], .color = sfWhite};
 	sfVertex      vertex4 = {.position = map_2d[a.x + 1][a.y + 1], .color = sfWhite};
 	
@@ -142,7 +142,7 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
 			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
 			//create_line(window, map_2d[y][x], map_2d[y][x + 1]);
 			//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
-			create_face(window, a, map_2d, water);
+			create_face(window, a, map_2d, water, color);
 		}
 	}
 	for (a.x = 0; a.x + 1 != MAP_X; a.x++)
