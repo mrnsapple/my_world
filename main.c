@@ -253,7 +253,7 @@ int	open_window(int **map, int **water_map)
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
 		map_creation(water_map, map, a);
-		//restart_map(a);
+		restart_map(a);
 		mouse_button_press(map);
 		sfRenderWindow_display(a->window);
 	}

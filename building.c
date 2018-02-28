@@ -47,8 +47,6 @@ int     **big_building_map(int  **map)
 
         for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
-			//map[y][x] = 400;
-			//if (y % 2 == 0)
 			map[y][x] = 250;
 			if (y == 0 || y == MAP_Y - 1 || x == 0 || x == MAP_X -1)
 				map[y][x] = 0;
