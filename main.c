@@ -80,13 +80,13 @@ sfVector2f	project_iso_point(int x, int z, int y)
 	return (point_2d);
 }
 
-sfVector2f	**create_2d_map(int **map_3d)
+sfVector2f	**create_2d_map(int **map_3d, sfVector2f **map2d)
 {
-	sfVector2f	**map2d;
+	//sfVector2f	**map2d;
 	int		x = 0;
 	int		y = 0;
 
-	map2d = sfVector_malloca(MAP_Y, MAP_X);
+
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			map2d[y][x] =
