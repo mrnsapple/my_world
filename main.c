@@ -43,7 +43,7 @@ int	**feed_map(int	**map)
 	}
 	return (map);
 }
-
+/*
 void	feeds_water_map(int	**map)
 {
 	int	y;
@@ -69,7 +69,7 @@ void	feeds_water_map(int	**map)
 			}
 		}
 	}
-}
+}*/
 
 sfVector2f      **create_2d_water_map(int **water_map)
 {
@@ -289,7 +289,7 @@ int	main(int ac, char **av)
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	map = feed_map(map);
 	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
-	water_map = feed_map(map);
+	water_map = feed_water_map(map);
 	open_window(map, water_map);
 	printf("hehe\n");
 	return (0);

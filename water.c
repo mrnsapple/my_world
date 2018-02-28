@@ -25,6 +25,14 @@ int	**feed_water_map()
                                 map[y][x] = 0;
 		}
         }
+	for (y = 0; y != MAP_Y; y++) {
+		if (y > MAP_Y / 4  && y < (MAP_Y / 4) * 3) {
+                        for (x = 0; x != MAP_X; x++) {
+				if (x > MAP_X/ 4 && x < (MAP_X / 4) * 3)      
+                                        map[y][x] = 200;
+                        }
+		}                                                      
+        }
 	return (map);
 }
 
