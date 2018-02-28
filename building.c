@@ -9,12 +9,34 @@
 
 void	change_building(int **map, luis *a)
 {
-	if (a->i == 3)
+	sfVector2f	**map2d;
+	printf("ifirst:%d\n", a->i);
+	if (a->i == 3) {
 		map = feed_map(map);
-	if (a->i == 4)
+		map2d = create_2d_map(map);
+		put_tree_all_square(map2d, a->water, a, a->one, 0);
+	}
+	else if (a->i == 4) {
 		map = big_building_map(map);
-	if (a->i == 5)
+		map2d = create_2d_map(map);
+		put_tree_all_square(map2d, a->water, a, a->two, 1);
+	}
+	else if (a->i == 5) {
 		map = small_building_map(map);
+		map2d = create_2d_map(map);
+		put_tree_all_square(map2d, a->water, a, a->tree, 2);
+	}
+	printf("i:%d\n", a->i);
+	map = feed_map(map);
+	map2d = create_2d_map(map);
+	print_trees(a->one, map2d, a->water, a);
+	map = big_building_map(map);
+	map2d = create_2d_map(map);
+	print_trees(a->two, map2d, a->water, a);
+	map = small_building_map(map);
+	map2d = create_2d_map(map);
+	print_trees(a->tree, map2d, a->water, a);
+	free_map2d(map2d);
 }
 
 int     **big_building_map(int  **map)

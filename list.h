@@ -73,10 +73,18 @@ typedef struct luis_t
 	int		i;
 	sfVector2f		**water;
 	sfVector2i	a;
+	sfVector2i	*one;
+	sfVector2i	*two;
+	sfVector2i	*tree;
+	int	stat[3];
 }luis;
 
 
+sfVector2i      *put_tree_all_square(sfVector2f **map2d,
+				     sfVector2f **water, luis *a, sfVector2i *value, int num);
+sfVector2i	*space_for_building(void);
 
+void    print_trees(sfVector2i *value, sfVector2f **map2d, sfVector2f **water, luis *a);
 
 //rectangle
 sfRectangleShape        *draw_rect(sfVector2f b, int i);
@@ -84,6 +92,7 @@ void    print_rect(luis *a, sfRectangleShape *rectangle);
 int     mouse_touch_rect(sfRectangleShape *rectangle,
 			 sfVector2i click);
 sfVector2f      *square_positions();
+int     restart_map(luis *a);
 
 //buildings
 int     **big_building_map(int  **map);

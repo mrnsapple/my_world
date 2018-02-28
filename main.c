@@ -21,7 +21,6 @@ int	**feed_map(int	**map)
 	int	y;
 	int	x;
 
-	printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
@@ -43,33 +42,6 @@ int	**feed_map(int	**map)
 	}
 	return (map);
 }
-/*
-void	feeds_water_map(int	**map)
-{
-	int	y;
-	int	x;
-
-	printf("x:%f, y%f, z%f\n",x_map, y_map, z_map);
-	for (y = 0; y != MAP_Y; y++) {
-		for (x = 0; x != MAP_X; x++) {
-			if (x % 2 == 0)
-				map[y][x] = 50;
-			else if (y % 2 == 0)
-				map[y][x] = 100;
-			else
-				map[y][x] = 0;
-			
-		}
-	}
-	for (y = 0; y != MAP_Y; y++) {
-		if (y > MAP_Y / 4  && y < (MAP_Y / 4) * 3) {
-			for (x = 0; x != MAP_X; x++) {
-				if (x > MAP_X/ 4 && x < (MAP_X / 4) * 3)
-					map[y][x] = 200;
-			}
-		}
-	}
-}*/
 
 sfVector2f      **create_2d_water_map(int **water_map)
 {
@@ -86,11 +58,8 @@ sfVector2f      **create_2d_water_map(int **water_map)
                                                   * SCALE_Y + y_map,
                                                   water_map[y][x] * SCAL\
 E_Z + z_map);
-                        // printf("mapx:%f", map2d[y][x].x);             
-                        //printf("mapy:%f\n", map2d[y][x].y);            
-                }
+		}
         }
-        //z_map--;                                                       
 	return (map2d);
 }
 
@@ -108,19 +77,6 @@ sfVector2f	project_iso_point(int x, int z, int y)
 	point[1] = y * cos(view) - point[2] * sin(view);
 	point_2d.x = point[0] + (800 / 2) - a;
 	point_2d.y = point[1] + (600 / 2);
-
-	/*point_2d.x = cos((0 / 180) * PI) * (float)x -
-		cos((0 / 180) * PI) * (float)y;
-	point_2d.y = sin((0.0 / 180) * PI);
-	printf("point->y:%f, y:%d\n", point_2d.y, y);
-	point_2d.y = point_2d.y * (float)y;
-	printf("point->y:%f\n", point_2d.y); 
-	point_2d.y = point_2d.y + (sin((0 / 180) * PI) * (float)x) - (float)z;
-	printf("point->y:%f\n", point_2d.y); 
-	if (point_2d.y < 0)
-		point_2d.y = 0;
-	if (point_2d.x < 0)
-	point_2d.x = 0;*/
 	return (point_2d);
 }
 
@@ -137,8 +93,6 @@ sfVector2f	**create_2d_map(int **map_3d)
 				project_iso_point(x * SCALING_X + x_map, y
 							* SCALING_Y + y_map,
 							map_3d[y][x] * SCALING_Z + z_map);
-			//printf("mapxd:%f", map2d[y][x].x);
-			//printf("mapy:%f\n", map2d[y][x].y);
 		}
 	}
 	return (map2d);
@@ -200,16 +154,30 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
 	return (0);
 }
 
+sfVector2i	*space_for_building(void)
+{
+	sfVector2i *value;
+	
+	value = malloc(sizeof(struct coordin_t)* MAP_X * MAP_Y);
+	value[0].x = -84;
+	value[0].y = -84;
+	return (value);
+}
+
 luis *feed2_a(luis *a, float num, int **map)
 {
         //a->center.x = 800 / 2 + 800 / 2 * cos(num)*cos(num*2);
         //a->center.y = 1000;
-	
+	a->one = space_for_building();
+	a->two = space_for_building();
+	a->tree = space_for_building();
+	a->stat[0] = 0;
+	a->stat[1] = 0;
+	a->stat[2] = 0;
 	a->i = 3;
 	a->texture = sfTexture_create(800, 600);
         a->sprite = sfSprite_create();
 	a->video_mode = sfVideoMode_getDesktopMode();
-	//      a->video_mode.bitsPerPixel = 8;
 	a->window = sfRenderWindow_create(a->video_mode, "Window", sfFullscreen, NULL);
         return (a);
 }
@@ -285,7 +253,7 @@ int	open_window(int **map, int **water_map)
 		sfRenderWindow_clear(a->window, sfBlack);
 		key_press();
 		map_creation(water_map, map, a);
-		
+		//restart_map(a);
 		mouse_button_press(map);
 		sfRenderWindow_display(a->window);
 	}
