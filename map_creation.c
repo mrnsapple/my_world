@@ -129,7 +129,7 @@ sfColor	map_creation(int **water_map, int **map, luis *a)
 	//a->water = create_2d_water_map(a->water_map);
 	map2d = create_2d_map(map);
 	put_tree_all_square(map2d, a->water, a);
-	draw_2d_water_map(a->window, a->water);
+	draw_2d_water_map(a->window, a->water, a);
 	free_map2d(map2d);
 	free_map2d(a->water);
 	return (a->color);

@@ -216,6 +216,18 @@ luis *feed2_a(luis *a, float num, int **map)
 
 int	key_press()
 {
+	if (sfKeyboard_isKeyPressed(sfKeyNum1)) {
+		rotation = 20;
+		view_angle = 332;
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyNum2)) {
+		rotation = 0;
+		view_angle = 270;
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyNum3)) {
+		rotation = 0;
+		view_angle = 360;
+	}
 	if (sfKeyboard_isKeyPressed(sfKeyLeft))
 		rotation--;
 	if (sfKeyboard_isKeyPressed(sfKeyRight))

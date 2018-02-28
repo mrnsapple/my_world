@@ -49,6 +49,13 @@ typedef struct framebuffer
         unsigned int height;
         sfUint8 *pixels;
 }framebuffer_t;
+
+typedef struct coordin_t
+{
+        int     x;
+        int     y;
+}coordinates;
+
 typedef struct luis_t
 {
  	sfVideoMode video_mode;
@@ -62,15 +69,13 @@ typedef struct luis_t
         sfVector2i	center;
 	sfWindow	*screen;
 	sfColor		color;
+	sfColor		rgb_water;
 	int		i;
 	sfVector2f		**water;
+	sfVector2i	a;
 }luis;
 
-typedef struct coordin_t
-{
-        int     x;
-        int     y;
-}coordinates;
+
 
 
 //rectangle
@@ -100,8 +105,8 @@ sfColor     map_creation(int **water_map, int **map, luis *a);
 void    int_malloca_free(int **pwd);
 
 sfVertexArray   *create_water_face(sfRenderWindow *window,
-				   struct coordin_t   a, sfVector2f **map_2d);
-int     draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d);
+				   luis *a, sfVector2f **map_2d);
+int     draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d, luis *b);
 
 int     **feed_map_tree(int     **map);
 int     **feed_water_map();

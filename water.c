@@ -36,18 +36,17 @@ int	**feed_water_map()
 	return (map);
 }
 
-sfVertexArray   *create_water_face(sfRenderWindow *window, struct coordin_t   a, sfVector2f **map_2d)
+sfVertexArray   *create_water_face(sfRenderWindow *window, luis *a, sfVector2f **map_2d)
 {
-        //map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + 30;                        
-        sfVertexArray *vertex_array = sfVertexArray_create();
-	sfVertex      vertex1 = {.position = map_2d[a.x][a.y], .color
-                                 = sfColor_fromRGBA(0, 0 , 255 , 50)};
-        sfVertex      vertex2 = {.position = map_2d[a.x][a.y + 1],
-                                 .color = sfColor_fromRGBA(0, 0 , 255, 50)};
-        sfVertex      vertex3 = {.position = map_2d[a.x + 1][a.y],
-				 .color = sfColor_fromRGBA(0, 0 , 255, 50)};
-        sfVertex      vertex4 = {.position = map_2d[a.x + 1][a.y + 1],
-				 .color = sfColor_fromRGBA(0, 0 , 255, 50)};
+	sfVertexArray *vertex_array = sfVertexArray_create();
+	sfVertex      vertex1 = {.position = map_2d[a->a.x][a->a.y], .color
+                                 = a->rgb_water};
+        sfVertex      vertex2 = {.position = map_2d[a->a.x][a->a.y + 1],
+                                 .color = a->rgb_water};
+        sfVertex      vertex3 = {.position = map_2d[a->a.x + 1][a->a.y],
+				 .color = a->rgb_water};
+        sfVertex      vertex4 = {.position = map_2d[a->a.x + 1][a->a.y + 1],
+				 .color = a->rgb_water};
 
         sfVertexArray_append(vertex_array, vertex1);
         sfVertexArray_append(vertex_array, vertex2);
@@ -60,13 +59,14 @@ sfVertexArray   *create_water_face(sfRenderWindow *window, struct coordin_t   a,
 }
 
 
-int	draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d)
+int	draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d, luis *b)
 {
-	struct coordin_t        a = {.x = 0, .y = 0};
+	b->i++;
+	b->rgb_water = sfColor_fromRGBA(0, 0 , 255, 50);
 
-        for (a.y = 0; a.y + 1 != MAP_Y; a.y++) {
-                for (a.x = 0; a.x + 1 != MAP_X; a.x++) {
-			create_water_face(window, a, map_2d);
+	for (b->a.y = 0; b->a.y + 1 != MAP_Y; b->a.y++) {
+                for (b->a.x = 0; b->a.x + 1 != MAP_X; b->a.x++) {
+			create_water_face(window, b, map_2d);
                 }
         }
 	return (0);
