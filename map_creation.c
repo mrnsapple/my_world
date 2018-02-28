@@ -23,6 +23,7 @@ void	put_tree_in_place(sfVector2f **map2d, sfVector2f **water, int x, int y)
 void	print_trees(sfVector2i *value, sfVector2f **map2d, sfVector2f **water, luis *a)
 {
 	int	i;
+
 	for (i = 0; value[i].x != -84 && value[i].y != -84; i++) {
 		put_tree_in_place(map2d, water, value[i].y, value[i].x);
 		draw_2d_map(a->window, map2d, water, a->color);
@@ -39,6 +40,16 @@ int	mouse_tree_press(int num, sfVector2i *value, int x, int y)
 		value[num].y = -84;
 	}
 	return (num);
+}
+
+int	restart_map(sfVector2i *value, int *num)
+{
+	if (sfKeyboard_isKeyPressed(sfKeySpace)) {
+		free(value);
+		(*num) = 0;
+		return (0);
+	}
+	return (*num);
 }
 //need to put to send the color each time call draw_2d_map
 sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a)
@@ -67,7 +78,8 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a)
 			}
 		}
 	}
-	print_trees(value, map2d, water, a);
+	if (restart_map(value, &num) != 0)
+		print_trees(value, map2d, water, a);
 	return (value);
 }
 
