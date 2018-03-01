@@ -10,9 +10,9 @@
 void	change_building(int **map, luis *a)
 {
 	sfVector2f	**map2d;
-
+	int	i = a->i;
 	map2d = sfVector_malloca(MAP_Y, MAP_X);
-
+	
 	if (a->i == 3) {
 		map = feed_map(map);
 		map2d = create_2d_map(map, map2d);
@@ -28,15 +28,19 @@ void	change_building(int **map, luis *a)
 		map2d = create_2d_map(map, map2d);
 		put_tree_all_square(map2d, a->water, a, a->tree, 2);
 	}
+	a->i = 0;
 	map = feed_map(map);
 	map2d = create_2d_map(map, map2d);
 	print_trees(a->one, map2d, a->water, a);
+	a->i = 1;
 	map = big_building_map(map);
 	map2d = create_2d_map(map, map2d);
 	print_trees(a->two, map2d, a->water, a);
+	a->i = 2;
 	map = small_building_map(map);
 	map2d = create_2d_map(map, map2d);
 	print_trees(a->tree, map2d, a->water, a);
+	a->i = i;
 	free_map2d(map2d);
 }
 

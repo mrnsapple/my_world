@@ -62,7 +62,7 @@ sfVertexArray   *create_water_face(sfRenderWindow *window, luis *a, sfVector2f *
 int	draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d, luis *b)
 {
 	//b->i++;
-	b->rgb_water = sfColor_fromRGBA(0, 0 , 0, 20);
+	b->rgb_water = sfColor_fromRGBA(255, 0 , 0, 20);
 	//b->rgb_water = sfWhite;
 	for (b->a.y = 0; b->a.y + 1 != MAP_Y; b->a.y++) {
                 for (b->a.x = 0; b->a.x + 1 != MAP_X; b->a.x++) {

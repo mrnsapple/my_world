@@ -73,7 +73,11 @@ typedef struct luis_t
 	sfVector2i	*one;
 	sfVector2i	*two;
 	sfVector2i	*tree;
-	int	stat[3];
+	sfColor		*color_one;
+	sfColor		*color_two;
+	sfColor		*color_tree;
+	int		stat[3];
+	int		num;
 }luis;
 
 

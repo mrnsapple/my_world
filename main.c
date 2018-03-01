@@ -174,6 +174,9 @@ luis *feed2_a(luis *a, float num, int **map)
 	a->stat[0] = 0;
 	a->stat[1] = 0;
 	a->stat[2] = 0;
+	a->color_one = malloc(sizeof(sfColor) * MAP_X * MAP_Y);
+	a->color_two = malloc(sizeof(sfColor) * MAP_X * MAP_Y);
+	a->color_tree = malloc(sizeof(sfColor) * MAP_X * MAP_Y);
 	a->i = 3;
 	a->texture = sfTexture_create(800, 600);
         a->sprite = sfSprite_create();
