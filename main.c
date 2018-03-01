@@ -224,10 +224,14 @@ int	mouse_button_press(int **map, int **water_map)
 	static	int i = 0;
 	
 	if (sfKeyboard_isKeyPressed(sfKeyReturn)) {
-		if (i % 2 == 0)
+		if (i == 0)
+			feed_water_map_tree(water_map);
+		else if (i == 1)
 			feed_water_map_second(water_map);
-		else
+		else {
 			feed_water_map(water_map);
+			i = -1;
+		}
 		i++;
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyZ)) {

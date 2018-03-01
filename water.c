@@ -33,6 +33,26 @@ void	feed_water_map(int **map)
         }
 }
 
+void	feed_water_map_tree(int **map)
+{
+	int	i = 100;
+	int	y;
+	int	x;
+	int	a = 2;
+	
+	for (y = MAP_Y - 1; y != - 1; y--) {
+		for (x = 0; x != MAP_X; x++) {
+			if (x < a || x > MAP_X - a) 
+				map[y][x] = 0;
+			else
+				map[y][x] = i + 100;
+		}
+		a++;
+		if (y == 9)
+			a = 0;
+	}
+}
+
 void	feed_water_map_second(int **map)
 {
         int     y;
