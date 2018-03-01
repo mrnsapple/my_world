@@ -219,8 +219,17 @@ int	key_press()
 	return (0);
 }
 
-int	mouse_button_press(int **map)
+int	mouse_button_press(int **map, int **water_map)
 {
+	static	int i = 0;
+	
+	if (sfKeyboard_isKeyPressed(sfKeyReturn)) {
+		if (i % 2 == 0)
+			feed_water_map_second(water_map);
+		else
+			feed_water_map(water_map);
+		i++;
+	}
 	if (sfKeyboard_isKeyPressed(sfKeyZ)) {
 		size = size + 10;
 		//free(map);
@@ -255,7 +264,7 @@ int	open_window(int **map, int **water_map)
 		key_press();
 		map_creation(water_map, map, a);
 		restart_map(a);
-		mouse_button_press(map);
+		mouse_button_press(map, water_map);
 		sfRenderWindow_display(a->window);
 	}
 	sfRenderWindow_destroy(a->window);
@@ -264,7 +273,7 @@ int	open_window(int **map, int **water_map)
 
 void	print_help()
 {
-	my_putstr("Space->game restart\n1,2,3->view change\narrow keys->rotation\nw,s,a,d->displacement\nz and x ->change tree leaves\nthe squares determines the color of the next building to put\nthe white squares determines the building\nselect with mouse the position to build\nright click->place the geometry\nleft click->delete geometry\n");
+	my_putstr("Space->game restart\n1,2,3->view change\narrow keys->rotation\nw,s,a,d->displacement\nz and x ->change tree leaves\nthe squares determines the color of the next building to put\nthe white squares determines the building\nselect with mouse the position to build\nright click->place the geometry\nleft click->delete geometry\nEsc/alt+F4->leave_game\nenter->change the map\n");
 }
 int	main(int ac, char **av)
 {
@@ -278,9 +287,10 @@ int	main(int ac, char **av)
 		}
 	
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
+	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	map = feed_map(map);
 	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
-	water_map = feed_water_map(map);
+	feed_water_map(water_map);
 	open_window(map, water_map);
 	return (1);
 }

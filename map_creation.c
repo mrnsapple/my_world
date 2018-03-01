@@ -180,7 +180,7 @@ sfColor	rectangle_stuff(luis *a, sfColor color)
 
 sfColor	map_creation(int **water_map, int **map, luis *a)
 {
-	water_map = feed_water_map(water_map);
+	//feed_water_map(water_map);
 	a->water = create_2d_water_map(water_map);
 	a->color = rectangle_stuff(a, a->color);
 	change_building(map, a);

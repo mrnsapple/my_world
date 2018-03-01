@@ -120,7 +120,10 @@ sfVertexArray   *create_water_face(sfRenderWindow *window,
 int	 draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d, luis *b);
 
 int	 **feed_map_tree(int	 **map);
-int	 **feed_water_map();
+//water
+void	feed_water_map(int **map);
+void	feed_water_map_second(int **map);
+void	feed_water_map_tree(int **map);
 void	are_nb(char *str);
 void	are_positive(int lines, int nb_match);
 char	**get_the_match(int num, int *line, int lines, char **map);

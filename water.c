@@ -8,13 +8,11 @@
 #include "list.h"
 //#include <curses.h>
 
-int	**feed_water_map()
+void	feed_water_map(int **map)
 {
         int     y;
         int     x;
-        int     **map;
-
-        map = int_malloca(MAP_Y + 1, MAP_X + 1);
+        
 	for (y = 0; y != MAP_Y; y++) {
                 for (x = 0; x != MAP_X; x++) {
 			if (x % 2 == 0)
@@ -33,7 +31,18 @@ int	**feed_water_map()
                         }
 		}                                                      
         }
-	return (map);
+}
+
+void	feed_water_map_second(int **map)
+{
+        int     y;
+        int     x;
+        
+	for (y = 0; y != MAP_Y; y++) {
+                for (x = 0; x != MAP_X; x++) {
+			map[y][x] = 0;
+		}
+        }
 }
 
 sfVertexArray   *create_water_face(sfRenderWindow *window, luis *a, sfVector2f **map_2d)
