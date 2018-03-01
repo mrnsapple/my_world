@@ -262,10 +262,20 @@ int	open_window(int **map, int **water_map)
 	return (0);
 }
 
+void	print_help()
+{
+	my_putstr("Space->game restart\n1,2,3->view change\narrow keys->rotation\nw,s,a,d->displacement\nz and x ->change tree leaves\nthe squares determines the color of the next building to put\nthe white squares determines the building\nselect with mouse the position to build\nright click->place the geometry\nleft click->delete geometry\n");
+}
 int	main(int ac, char **av)
 {
 	int		**map;
 	int		**water_map;
+
+	if (ac == 2)
+		if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == '\0') {
+			print_help();
+			return (1);
+		}
 	
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	map = feed_map(map);
@@ -273,5 +283,5 @@ int	main(int ac, char **av)
 	water_map = feed_water_map(map);
 	open_window(map, water_map);
 	printf("hehe\n");
-	return (0);
+	return (1);
 }
