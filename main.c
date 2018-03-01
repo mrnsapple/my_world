@@ -237,9 +237,10 @@ int	mouse_button_press(int **map)
 void	close_win(luis *a)
 {
 	while(sfRenderWindow_pollEvent(a->window, &a->event)){
-		if(a->event.type == sfEvtClosed)
+		if(a->event.type == sfEvtClosed || 
+		   sfKeyboard_isKeyPressed(sfKeyEscape))
 			sfRenderWindow_close(a->window);
-		}
+	}
 }
 int	open_window(int **map, int **water_map)
 {
@@ -247,7 +248,6 @@ int	open_window(int **map, int **water_map)
 		
 	a = malloc(sizeof(luis));
 	a = feed2_a(a, 0, map);
-	//a->water_map = water_map;
 	sfRenderWindow_setFramerateLimit(a->window, 16);
 	while (sfRenderWindow_isOpen(a->window)) {
 		close_win(a);
@@ -282,6 +282,5 @@ int	main(int ac, char **av)
 	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	water_map = feed_water_map(map);
 	open_window(map, water_map);
-	printf("hehe\n");
 	return (1);
 }
