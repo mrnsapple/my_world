@@ -53,25 +53,28 @@ int	mouse_tree_press(int num, sfVector2i *value, int x, int y)
 	return (num);
 }
 
-int	delete_this_value(int i, sfVector2i *value)
+int	delete_this_value(int i, sfVector2i *value, sfColor *color)
 {
 	for (i = i; value[i].x != -84 &&
 		     value[i].y != -84; i++) {
 		value[i].x = value[i + 1].x;
 		value[i].y = value[i + 1].y;
+		color[i] = color [i + 1];
 	}
 	return (i - 1);
 }
 
-int	mouse_tree_delete(int  num, sfVector2i *value, int x, int y)
+int	mouse_tree_delete(sfVector2i *value, int x, int y, sfColor *color, int num)
 {
 	int	i;
 	//int	g
+	//int	num = ;
+	
 	if (sfMouse_isButtonPressed(sfMouseRight)) {
 		for (i = 0; value[i].x != -84 &&
 			     value[i].y != -84; i++) {
 			if (value[i].x == x && value[i].y == y) {
-				num = delete_this_value(i, value);
+				num = delete_this_value(i, value, color);
 				i = 0;
 			}
 		}
@@ -111,9 +114,9 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 			    click.x < water[y][x + 1].x && 
 			    click.y > water[y][x].y &&
 			    click.y < water[y + 1][x].y) {
+				a->num = num;
 				a->stat[num] = mouse_tree_press(a->stat[num], value, x, y);
-				a->stat[num] = mouse_tree_delete(a->stat[num],
-								 value, x, y);
+				a->stat[num] = mouse_tree_delete(value, x, y, color, a->stat[num]);
 				put_tree_in_place(map2d, water, y, x);
 				if (a->num != num) {
 					color[a->stat[num - 1]] = a->color;
@@ -165,7 +168,7 @@ sfColor	rectangle_stuff(luis *a, sfColor color)
 				color = wanted_color(i);
 				return (color);
 			} else {
-				color = sfColor_fromRGBA(0, 0 , 0, 125);
+				color = sfColor_fromRGBA(0, 0 , 0, 130);
 				a->i = i;
 			}
 		}
