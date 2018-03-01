@@ -42,6 +42,32 @@ int	mouse_tree_press(int num, sfVector2i *value, int x, int y)
 	return (num);
 }
 
+int	delete_this_value(int i, sfVector2i *value)
+{
+	for (i = i; value[i].x != -84 &&
+		     value[i].y != -84; i++) {
+		value[i].x = value[i + 1].x;
+		value[i].y = value[i + 1].y;
+	}
+	return (i - 1);
+}
+
+int	mouse_tree_delete(int  num, sfVector2i *value, int x, int y)
+{
+	int	i;
+	//int	g
+	if (sfMouse_isButtonPressed(sfMouseRight)) {
+		for (i = 0; value[i].x != -84 &&
+			     value[i].y != -84; i++) {
+			if (value[i].x == x && value[i].y == y) {
+				num = delete_this_value(i, value);
+				i = 0;
+			}
+		}
+	}
+	return (num);
+}
+
 int	restart_map(luis *a)
 {
 	if (sfKeyboard_isKeyPressed(sfKeySpace)) {
@@ -64,9 +90,8 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 	int		y;
 	//sfVector2i	*value = shape;
 	sfVector2i		click;
-	printf("hehe\n");
+	
 	click = sfMouse_getPosition(a->screen);
-	printf("hoho\n");
 	for (y = 0; y != MAP_Y; y++) {
                 for (x = 0; x != MAP_X; x++) {
 			if (click.x > water[y][x].x &&
@@ -75,9 +100,9 @@ sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a,
 			    click.y < water[y + 1][x].y) {
 				printf("hehe1, num%d\n", num);
 				a->stat[num] = mouse_tree_press(a->stat[num], value, x, y);
-				printf("hehe2\n");
+				a->stat[num] = mouse_tree_delete(a->stat[num],
+								 value, x, y);
 				put_tree_in_place(map2d, water, y, x);
-				printf("hehe3\n");
 				draw_2d_map(a->window, map2d, water, a->color);
 			}
 		}
