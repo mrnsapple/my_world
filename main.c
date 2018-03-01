@@ -200,13 +200,13 @@ int	key_press()
 		view_angle = 360;
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyLeft))
-		rotation--;
+		rotation = rotation - 1.5;
 	if (sfKeyboard_isKeyPressed(sfKeyRight))
-		rotation++;
+		rotation = rotation + 1.5;
 	if (sfKeyboard_isKeyPressed(sfKeyUp))
-		view_angle++;
+		view_angle = view_angle + 1.5;
 	if (sfKeyboard_isKeyPressed(sfKeyDown))
-		view_angle--;
+		view_angle = view_angle - 1.5;
 	if (sfKeyboard_isKeyPressed(sfKeyA))
 		x_map = x_map - 10;
 	if (sfKeyboard_isKeyPressed(sfKeyD))
@@ -221,14 +221,12 @@ int	key_press()
 
 int	mouse_button_press(int **map)
 {
-	//if (sfMouse_isButtonPressed(sfMouseLeft)) {
 	if (sfKeyboard_isKeyPressed(sfKeyZ)) {
 		size = size + 10;
 		//free(map);
 		map = feed_map(map);
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyX)) {
-		//if (sfMouse_isButtonPressed(sfMouseRight)) {
 		size = size - 10;
 		//free(map);
 		map = feed_map(map);
