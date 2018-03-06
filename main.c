@@ -153,6 +153,25 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
 		create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
 	return (0);
 }
+int	draw_2d_mapline(sfRenderWindow *window, sfVector2f **map_2d,sfColor color)
+{
+	struct coordin_t	a = {.x = 0, .y = 0};
+
+	for (a.y = 0; a.y + 1 != MAP_Y; a.y++) {
+		for (a.x = 0; a.x + 1 != MAP_X; a.x++) {
+			//printf("thex:%d,they:%d\n",x, y);
+			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
+			create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
+			create_line(window, map_2d[a.y][a.x], map_2d[a.y + 1][a.x]);
+			//create_face(window, a, map_2d, water, color);
+		}
+	}
+	for (a.x = MAP_X - a.x, a.y = 0; a.y + 1 != MAP_Y; a.y++)
+		create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
+	for (a.x = 0; a.x + 1 != MAP_X; a.x++)
+		create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
+	return (0);
+}
 
 sfVector2i	*space_for_building(void)
 {

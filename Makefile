@@ -17,7 +17,7 @@ SRC 	=	main.c			\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME 	=	matchstick
+NAME 	=	my_world
 
 RM	= rm -f
 

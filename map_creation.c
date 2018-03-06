@@ -6,7 +6,7 @@
 */
 
 #include "list.h"
-
+int     draw_2d_mapline(sfRenderWindow *window, sfVector2f **map_2d,sfColor color);
 void	put_tree_in_place(sfVector2f **map2d, sfVector2f **water, int x, int y)
 {
 	float	a = - water[x][y].x + map2d[x][y].x;
@@ -183,8 +183,10 @@ sfColor	map_creation(int **water_map, int **map, luis *a)
 	//feed_water_map(water_map);
 	a->water = create_2d_water_map(water_map);
 	a->color = rectangle_stuff(a, a->color);
-	change_building(map, a);
+
 	draw_2d_water_map(a->window, a->water, a);
+	draw_2d_mapline(a->window, a->water, sfWhite);
+	change_building(map, a);
 	free_map2d(a->water);
 	return (a->color);
 }
