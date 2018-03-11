@@ -1,9 +1,8 @@
-
 ##
-## EPITECH PROJECT, 2017
-## 
+## EPITECH PROJECT, 2018
+## jfjf
 ## File description:
-## 
+## by oriol
 ##
 
 SRC 	=	main.c			\

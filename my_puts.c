@@ -11,7 +11,6 @@
 #include <unistd.h>
 #include "list.h"
 
-
 void	my_putchar(char c)
 {
 	write(1, &c, 1);
@@ -48,27 +47,27 @@ int	is_num(char *str)
 
 int	my_get_nbr(char *str)
 {
-        double  x = 0;
-        int     y = 0;
-        int     z = 1;
+	double  x = 0;
+	int     y = 0;
+	int     z = 1;
 	
 	if (is_num(str) == 0)
 		return(-84);
-        while (str[y] == '-' || str[y] == '+' ||
+	while (str[y] == '-' || str[y] == '+' ||
 	       str[y] < '0' || str[y] > '9') {
-                if (str[y] == '-')
-                        z *= -1;
-                y++;
-        }
-        while (str[y] != '\0' && str[y] >= '0' && str[y] <= '9') {
-                x = (x * 10);
-                x = (str[y] - 48) + x;
-                y++;
-        }
-        if (z == -1)
-                x *= -1;
-        if (x < -2147483648 || x > 2147483647)
-                return (0);
-        x = (int)x;
-        return (x);
+		if (str[y] == '-')
+			z *= -1;
+		y++;
+	}
+	while (str[y] != '\0' && str[y] >= '0' && str[y] <= '9') {
+		x = (x * 10);
+		x = (str[y] - 48) + x;
+		y++;
+	}
+	if (z == -1)
+		x *= -1;
+	if (x < -2147483648 || x > 2147483647)
+		return (0);
+	x = (int)x;
+	return (x);
 }

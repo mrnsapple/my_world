@@ -11,8 +11,8 @@ void	change_building(int **map, luis *a)
 {
 	sfVector2f	**map2d;
 	int	i = a->i;
+
 	map2d = sfVector_malloca(MAP_Y, MAP_X);
-	
 	if (a->i == 3) {
 		map = feed_map(map);
 		map2d = create_2d_map(map, map2d);
@@ -47,9 +47,9 @@ void	change_building(int **map, luis *a)
 int     **big_building_map(int  **map)
 {
 	int     y;
-        int     x;
+	int     x;
 
-        for (y = 0; y != MAP_Y; y++) {
+	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
 			map[y][x] = 250;
 			if (y == 0 || y == MAP_Y - 1 || x == 0 || x == MAP_X -1)
