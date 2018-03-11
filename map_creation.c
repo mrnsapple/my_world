@@ -67,8 +67,6 @@ int	delete_this_value(int i, sfVector2i *value, sfColor *color)
 int	mouse_tree_delete(sfVector2i *value, int x, int y, sfColor *color, int num)
 {
 	int	i;
-	//int	g
-	//int	num = ;
 	
 	if (sfMouse_isButtonPressed(sfMouseRight)) {
 		for (i = 0; value[i].x != -84 &&
@@ -97,7 +95,6 @@ int	restart_map(luis *a)
 	}
 	return (0);
 }
-//need to put to send the color each time call draw_2d_map
 
 sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a, sfVector2i *value, int num)
 {
@@ -180,10 +177,8 @@ sfColor	rectangle_stuff(luis *a, sfColor color)
 
 sfColor	map_creation(int **water_map, int **map, luis *a)
 {
-	//feed_water_map(water_map);
 	a->water = create_2d_water_map(water_map);
 	a->color = rectangle_stuff(a, a->color);
-
 	draw_2d_water_map(a->window, a->water, a);
 	draw_2d_mapline(a->window, a->water, sfWhite);
 	change_building(map, a);

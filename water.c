@@ -6,7 +6,6 @@
 */
 
 #include "list.h"
-//#include <curses.h>
 
 void	feed_water_map(int **map)
 {
@@ -90,15 +89,11 @@ sfVertexArray   *create_water_face(sfRenderWindow *window, luis *a, sfVector2f *
 
 int	draw_2d_water_map(sfRenderWindow *window, sfVector2f **map_2d, luis *b)
 {
-	//b->i++;
 	b->rgb_water = sfColor_fromRGBA(0,100 , 0, 255);
-	//b->rgb_water = sfWhite;
 	for (b->a.y = 0; b->a.y + 1 != MAP_Y; b->a.y++) {
                 for (b->a.x = 0; b->a.x + 1 != MAP_X; b->a.x++) {
 			create_water_face(window, b, map_2d);
                 }
         }
 	return (0);
-
-	
 }

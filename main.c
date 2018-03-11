@@ -82,10 +82,8 @@ sfVector2f	project_iso_point(int x, int z, int y)
 
 sfVector2f	**create_2d_map(int **map_3d, sfVector2f **map2d)
 {
-	//sfVector2f	**map2d;
 	int		x = 0;
 	int		y = 0;
-
 
 	for (y = 0; y != MAP_Y; y++) {
 		for (x = 0; x != MAP_X; x++) {
@@ -115,8 +113,6 @@ sfVertexArray   *create_line(sfRenderWindow *window, sfVector2f point1, sfVector
 sfVertexArray   *create_face(sfRenderWindow *window, struct coordin_t	a,
 			     sfVector2f **map_2d, sfVector2f **water, sfColor color)
 {
-	//map_2d[a.x][a.y].x = map_2d[a.x][a.y].x + water[0][0].x;
-	//map_2d[a.x][a.y].y = map_2d[a.x][a.y].y + water[0][0].y;
 	sfVertexArray *vertex_array = sfVertexArray_create();
 	sfVertex      vertex1 = {.position = map_2d[a.x][a.y], .color
 				 = color};
@@ -141,29 +137,22 @@ int	draw_2d_map(sfRenderWindow *window, sfVector2f **map_2d,
 	struct coordin_t	a = {.x = 0, .y = 0};
 
 	for (a.y = 0; a.y + 1 != MAP_Y; a.y++) {
-		for (a.x = 0; a.x + 1 != MAP_X; a.x++) {
-			//printf("thex:%d,they:%d\n",x, y);
-			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
-			//create_line(window, map_2d[y][x], map_2d[y][x + 1]);
-			//create_line(window, map_2d[y][x], map_2d[y + 1][x]);
+		for (a.x = 0; a.x + 1 != MAP_X; a.x++)
 			create_face(window, a, map_2d, water, color);
-		}
 	}
 	for (a.x = 0; a.x + 1 != MAP_X; a.x++)
 		create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
 	return (0);
 }
+
 int	draw_2d_mapline(sfRenderWindow *window, sfVector2f **map_2d,sfColor color)
 {
 	struct coordin_t	a = {.x = 0, .y = 0};
 
 	for (a.y = 0; a.y + 1 != MAP_Y; a.y++) {
 		for (a.x = 0; a.x + 1 != MAP_X; a.x++) {
-			//printf("thex:%d,they:%d\n",x, y);
-			//printf("y:%f\n,x:%f\n",map_2d[y][x].x, map_2d[y][x].y);
 			create_line(window, map_2d[a.y][a.x], map_2d[a.y][a.x + 1]);
 			create_line(window, map_2d[a.y][a.x], map_2d[a.y + 1][a.x]);
-			//create_face(window, a, map_2d, water, color);
 		}
 	}
 	for (a.x = MAP_X - a.x, a.y = 0; a.y + 1 != MAP_Y; a.y++)
@@ -185,8 +174,6 @@ sfVector2i	*space_for_building(void)
 
 luis *feed2_a(luis *a, float num, int **map)
 {
-        //a->center.x = 800 / 2 + 800 / 2 * cos(num)*cos(num*2);
-        //a->center.y = 1000;
 	a->one = space_for_building();
 	a->two = space_for_building();
 	a->tree = space_for_building();
@@ -255,12 +242,10 @@ int	mouse_button_press(int **map, int **water_map)
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyZ)) {
 		size = size + 10;
-		//free(map);
 		map = feed_map(map);
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyX)) {
 		size = size - 10;
-		//free(map);
 		map = feed_map(map);
 	}
 	return (0);
@@ -298,6 +283,7 @@ void	print_help()
 {
 	my_putstr("Space->game restart\n1,2,3->view change\narrow keys->rotation\nw,s,a,d->displacement\nz and x ->change tree leaves\nthe squares determines the color of the next building to put\nthe white squares determines the building\nselect with mouse the position to build\nright click->place the geometry\nleft click->delete geometry\nEsc/alt+F4->leave_game\nenter->change the map\n");
 }
+
 int	main(int ac, char **av)
 {
 	int		**map;
