@@ -6,14 +6,17 @@
 */
 
 #include "list.h"
-int     draw_2d_mapline(sfRenderWindow *window, sfVector2f **map_2d,sfColor color);
+
+int     draw_2d_mapline(sfRenderWindow *window,
+			sfVector2f **map_2d,sfColor color);
+
 void	put_tree_in_place(sfVector2f **map2d, sfVector2f **water, int x, int y)
 {
 	float	a = - water[x][y].x + map2d[x][y].x;
 	float	b = - water[x][y].y + map2d[x][y].y;
 
 	for (y = 0; y != MAP_Y; y++) {
-                for (x = 0; x != MAP_X; x++) {
+		for (x = 0; x != MAP_X; x++) {
 			map2d[x][y].x = map2d[x][y].x - a;
 			map2d[x][y].y = map2d[x][y].y - b;
 		}
@@ -98,15 +101,15 @@ int	restart_map(luis *a)
 
 sfVector2i	*put_tree_all_square(sfVector2f **map2d, sfVector2f **water, luis *a, sfVector2i *value, int num)
 {
-	int	        x;
-	int	        y;
+	int		x;
+	int		y;
 	sfVector2i      click;
 	sfColor		*color;
 
 	color = selected_color(a, num);
 	click = sfMouse_getPosition(a->screen);
 	for (y = 0; y != MAP_Y; y++) {
-                for (x = 0; x != MAP_X; x++) {
+		for (x = 0; x != MAP_X; x++) {
 			if (click.x > water[y][x].x &&
 			    click.x < water[y][x + 1].x && 
 			    click.y > water[y][x].y &&
@@ -143,7 +146,7 @@ sfColor	wanted_color(int i)
 
 sfColor	rectangle_stuff(luis *a, sfColor color)
 {
-	sfRectangleShape        *rectangle;
+	sfRectangleShape	*rectangle;
 	sfVector2f		*num;
 	int			i;
 	sfVector2i		click;
