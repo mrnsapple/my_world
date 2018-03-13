@@ -284,11 +284,43 @@ void	print_help()
 	my_putstr("Space->game restart\n1,2,3->view change\narrow keys->rotation\nw,s,a,d->displacement\nz and x ->change tree leaves\nthe squares determines the color of the next building to put\nthe white squares determines the building\nselect with mouse the position to build\nright click->place the geometry\nleft click->delete geometry\nEsc/alt+F4->leave_game\nenter->change the map\n");
 }
 
-int	main(int ac, char **av)
+int my_strcmp(char *pwd, char *line)
+{
+ 	int     i;
+
+        for (i = 0; pwd[i] != '\0'; i++) {
+                if(pwd[i] != line[i])
+			return (0);
+        }
+        if (line[i] == pwd[i])
+		return (1);
+	return (0);                        
+}
+
+int	envir(char **env)
+{
+	int	i;
+	char	a[200];
+	int	g;
+	int	l = 0;
+	for (i = 0; env[i] != NULL; i++) {
+		for (g = 0;  env[i][g] != '='; g++)
+			a[g] = env[i][g];
+		a[g] = '\0';
+		if (my_strcmp("DISPLAY", a) == 1)
+			l++;
+	}
+	return (l);
+}
+int	main(int ac, char **av, char **env)
 {
 	int		**map;
 	int		**water_map;
 
+	if (env == NULL || env[0] == NULL)
+		return (0);
+	if (envir(env) == 0)
+		return (0);
 	if (ac == 2)
 		if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == '\0') {
 			print_help();
