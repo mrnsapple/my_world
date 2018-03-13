@@ -321,12 +321,15 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	if (envir(env) == 0)
 		return (0);
-	if (ac == 2)
+	if (ac == 2) {
 		if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == '\0') {
 			print_help();
 			return (1);
 		}
-	
+		return (0);
+	}
+	if (ac != 1)
+		return (0);
 	map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	water_map = int_malloca(MAP_Y + 1, MAP_X + 1);
 	map = feed_map(map);
