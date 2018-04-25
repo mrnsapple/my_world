@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** my_world
-** File description:
-** by Pierrienco and Oriol
-*/
-
 #include "list.h"
 
 void	change_building(int **map, luis *a)
