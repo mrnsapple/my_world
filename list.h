@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** dkwd
+** .h file
 ** File description:
-** dwmkdmkw
+** By ORIOL
 */
 
 #include <sys/types.h>
@@ -80,9 +80,7 @@ typedef struct luis_t
 sfVector2i	  *put_tree_all_square(sfVector2f **map2d,
 					 sfVector2f **water, luis *a, sfVector2i *value, int num);
 sfVector2i	*space_for_building(void);
-
 void		print_trees(sfVector2i *value, sfVector2f **map2d, sfVector2f **water, luis *a);
-
 sfRectangleShape		*draw_rect(sfVector2f b, int i);
 void	print_rect(luis *a, sfRectangleShape *rectangle);
 int	 mouse_touch_rect(sfRectangleShape *rectangle,
