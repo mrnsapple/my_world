@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** jeje
+** my_world
 ** File description:
-** By Pierillo
+** By Oriol
 */
 
 #include "list.h"
