@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** my_world
 ** File description:
-** By Piere and Oriol
+** By  Oriol
 */
 
 #include "list.h"
