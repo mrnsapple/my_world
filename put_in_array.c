@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** dkme
 ** File description:
-** delk
+** By oriol
 */
 
 #include "list.h"
