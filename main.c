@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** 
+** main.c
 ** File description:
-** 
+** By ORIOL
 */
 
 #include <curses.h>
